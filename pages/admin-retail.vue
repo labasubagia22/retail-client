@@ -21,6 +21,7 @@ export default {
         { link: '/admin-retail', label: 'Home' },
         { link: '/admin-retail/store', label: 'Store' },
         { link: '/admin-retail/product', label: 'Product' },
+        { link: '/admin-retail/product-type', label: 'Product Type' },
         { link: '/admin-retail/brand', label: 'Brand' },
         { link: '/admin-retail/vendor', label: 'Vendor' },
       ],
