@@ -16,6 +16,10 @@
     >
       <p class="text-center">{{ form.id ? 'Edit' : 'Add New' }} Store</p>
 
+      <p v-if="error" class="text-xs text-center text-red-500 mt-1">
+        {{ error.name }}
+      </p>
+
       <div class="mt-4">
         <!-- Name -->
         <input
@@ -24,6 +28,11 @@
           type="text"
           placeholder="Name"
         />
+        <span
+          v-if="validation && validation.name"
+          class="text-xs text-red-500 mt-1"
+          >{{ validation.name.join() }}</span
+        >
 
         <!-- Address -->
         <input
@@ -32,6 +41,11 @@
           type="text"
           placeholder="Address"
         />
+        <span
+          v-if="validation && validation.address"
+          class="text-xs text-red-500 mt-1"
+          >{{ validation.address.join() }}</span
+        >
       </div>
 
       <div class="flex justify-center text-sm text-white mt-4">
@@ -97,6 +111,12 @@ export default {
     list() {
       return this.$store.state.store.list
     },
+    validation() {
+      return this.$store.state.store.validation
+    },
+    error() {
+      return this.$store.state.store.error
+    },
   },
   created() {
     this.$store.dispatch('store/loadList')
@@ -123,6 +143,7 @@ export default {
       this.clearForm()
     },
     clearForm() {
+      this.$store.dispatch('store/clearError')
       this.form = {
         id: null,
         name: null,
@@ -132,8 +153,10 @@ export default {
     async handleSave() {
       if (this.form.id) await this.$store.dispatch('store/update', this.form)
       else await this.$store.dispatch('store/create', this.form)
-      this.clearForm()
-      this.isFormOpen = false
+      if (!this.error && !this.validation) {
+        this.clearForm()
+        this.isFormOpen = false
+      }
     },
   },
 }
