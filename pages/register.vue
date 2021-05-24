@@ -139,10 +139,7 @@ export default {
       ]
     },
     optionStore() {
-      return [
-        { id: 1, name: 'Mahabarata Bali ' },
-        { id: 2, name: 'Mahabarata Surabaya' },
-      ]
+      return this.$store.state.store.list
     },
     validation() {
       return this.$store.state.user.validation
@@ -150,6 +147,9 @@ export default {
     error() {
       return this.$store.state.user.error
     },
+  },
+  created() {
+    this.$store.dispatch('store/loadList')
   },
   methods: {
     async handleSubmit() {
