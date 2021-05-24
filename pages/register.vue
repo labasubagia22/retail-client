@@ -71,7 +71,7 @@
             <option
               v-for="v in optionStore"
               :key="v.id"
-              :value="v.name"
+              :value="v.id"
               class="text-sm cursor-pointer"
             >
               {{ v.name }}

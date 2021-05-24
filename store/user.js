@@ -3,7 +3,6 @@ export const state = () => ({
   current: null,
   validation: null,
   error: null,
-  token: null,
 })
 
 export const actions = {
