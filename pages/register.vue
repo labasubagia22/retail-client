@@ -5,13 +5,13 @@
       <p v-if="error" class="text-xs text-center text-red-500 mt-1">
         {{ error.name }}
       </p>
-      <section class="flex flex-col mt-4">
+      <section class="flex flex-col mt-6">
         <!-- email -->
         <input
           v-model="form.email"
-          class="px-3 py-1 border-2 text-sm rounded"
+          class="px-3 py-2 border-2 text-sm rounded"
           type="text"
-          placeholder="email"
+          placeholder="Email"
           required
         />
         <span
@@ -23,9 +23,9 @@
         <!-- name -->
         <input
           v-model="form.name"
-          class="px-3 py-1 border-2 text-sm rounded mt-2"
+          class="px-3 py-2 border-2 text-sm rounded mt-4"
           type="text"
-          placeholder="name"
+          placeholder="Name"
           required
         />
         <span
@@ -37,7 +37,7 @@
         <!-- type -->
         <select
           v-model="form.type"
-          class="mt-2 px-3 py-2 text-sm rounded bg-white border-2"
+          class="mt-4 px-3 py-2 text-sm rounded bg-white border-2"
           required
         >
           <option class="text-sm text-gray-500" disabled value="">
@@ -62,7 +62,7 @@
         <div v-if="form.type === 'admin_store'" class="w-full">
           <select
             v-model="form.store_id"
-            class="mt-2 px-3 py-2 text-sm rounded bg-white border-2 w-full"
+            class="mt-4 px-3 py-2 text-sm rounded bg-white border-2 w-full"
             required
           >
             <option class="text-sm text-gray-500" disabled value="">
@@ -87,9 +87,9 @@
         <!-- password -->
         <input
           v-model="form.password"
-          class="px-3 py-1 border-2 mt-3 text-sm rounded"
+          class="px-3 py-2 border-2 mt-4 text-sm rounded"
           type="password"
-          placeholder="password"
+          placeholder="Password"
         />
         <span
           v-if="validation && validation.password"
@@ -104,7 +104,7 @@
 
         <!-- submit -->
         <button
-          class="mt-3 w-full bg-blue-400 text-white p-1 pb-2 text-sm rounded"
+          class="mt-6 w-full bg-blue-400 text-white p-2 text-sm rounded"
           @click="handleSubmit"
         >
           Submit

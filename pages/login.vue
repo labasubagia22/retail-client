@@ -5,13 +5,13 @@
       <p v-if="error" class="text-xs text-center text-red-500 mt-1">
         {{ error.name }}
       </p>
-      <section class="flex flex-col mt-4">
+      <section class="flex flex-col mt-6">
         <!-- email -->
         <input
           v-model="form.email"
-          class="px-3 py-1 border-2 text-sm rounded"
+          class="px-3 py-2 border-2 text-sm rounded"
           type="text"
-          placeholder="email"
+          placeholder="Email"
         />
         <span
           v-if="validation && validation.email"
@@ -22,9 +22,9 @@
         <!-- password -->
         <input
           v-model="form.password"
-          class="px-3 py-1 border-2 mt-3 text-sm rounded"
+          class="px-3 py-2 border-2 mt-4 text-sm rounded"
           type="password"
-          placeholder="password"
+          placeholder="Password"
         />
         <span
           v-if="validation && validation.password"
@@ -38,7 +38,7 @@
         </p>
 
         <button
-          class="mt-3 w-full bg-blue-400 text-white p-1 pb-2 text-sm rounded"
+          class="mt-6 w-full bg-blue-400 text-white p-2 text-sm rounded"
           @click="handleSubmit"
         >
           Submit

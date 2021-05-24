@@ -27,6 +27,44 @@ export const actions = {
     }
   },
 
+  async create({ commit, dispatch }, { name, address }) {
+    try {
+      const response = await this.$axios.post(`/store`, { name, address })
+      const data = await response.data
+      if (data.success) dispatch('loadList')
+    } catch (error) {
+      if (error.response.status === 422) {
+        commit('setValidation', error.response.data)
+        return
+      }
+      commit('setError', error)
+    }
+  },
+
+  async update({ commit, dispatch }, { id, name, address }) {
+    try {
+      const response = await this.$axios.put(`/store/${id}`, { name, address })
+      const data = await response.data
+      if (data.success) dispatch('loadList')
+    } catch (error) {
+      if (error.response.status === 422) {
+        commit('setValidation', error.response.data)
+        return
+      }
+      commit('setError', error)
+    }
+  },
+
+  async delete({ commit, dispatch }, id) {
+    try {
+      const response = await this.$axios.delete(`/store/${id}`)
+      const data = await response.data
+      if (data.success) dispatch('loadList')
+    } catch (error) {
+      commit('setError', error)
+    }
+  },
+
   clearError({ commit }) {
     commit('setValidation', null)
     commit('setError', null)
