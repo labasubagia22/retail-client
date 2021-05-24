@@ -148,6 +148,13 @@ export default {
       return this.$store.state.user.error
     },
   },
+  watch: {
+    'form.type'(value) {
+      if (value !== 'admin_store') {
+        this.form.store_id = ''
+      }
+    },
+  },
   created() {
     this.$store.dispatch('store/loadList')
   },
