@@ -95,7 +95,7 @@
 </template>
 <script>
 export default {
-  name: 'Store',
+  name: 'Vendor',
   data() {
     return {
       form: {

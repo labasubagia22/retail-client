@@ -80,7 +80,7 @@
 </template>
 <script>
 export default {
-  name: 'Store',
+  name: 'Brand',
   data() {
     return {
       form: {

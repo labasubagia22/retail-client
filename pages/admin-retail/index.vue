@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'AdminRetailIndex',
+  name: 'Index',
   data() {
     return {
       data: 'sdd',
