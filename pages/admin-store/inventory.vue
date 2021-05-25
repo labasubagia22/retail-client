@@ -17,7 +17,7 @@
       <p class="text-center">{{ form.id ? 'Edit' : 'Add New' }} Inventory</p>
 
       <p v-if="error" class="text-xs text-center text-red-500 mt-1">
-        {{ error.name }}
+        {{ error.response.data.error }}
       </p>
 
       <div class="mt-4">
