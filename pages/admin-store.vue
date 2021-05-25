@@ -2,6 +2,7 @@
   <div class="w-full h-full flex text-gray-600">
     <!-- sidebar -->
     <sidebar :menu="menu" class="w-2/12 z-10 fixed" />
+
     <div class="w-2/12"></div>
 
     <!-- container -->
@@ -19,18 +20,15 @@
 <script>
 import Sidebar from '../components/Sidebar.vue'
 export default {
-  name: 'AdminRetailParent',
+  name: 'AdminStore',
   components: { Sidebar },
-  middleware: ['auth', 'admin-retail'],
+  middleware: ['auth', 'admin-store'],
   data() {
     return {
       menu: [
-        { link: '/admin-retail', label: 'Home' },
-        { link: '/admin-retail/store', label: 'Store' },
-        { link: '/admin-retail/product', label: 'Product' },
-        { link: '/admin-retail/product-type', label: 'Product Type' },
-        { link: '/admin-retail/brand', label: 'Brand' },
-        { link: '/admin-retail/vendor', label: 'Vendor' },
+        { link: '/admin-store', label: 'Home' },
+        { link: '/admin-store/order', label: 'Order' },
+        { link: '/admin-store/inventory', label: 'Inventory' },
       ],
     }
   },

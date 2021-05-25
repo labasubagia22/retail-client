@@ -33,7 +33,6 @@ export const actions = {
       const response = await this.$axios.post('/auth/register', payload)
       const data = await response.data
       commit('setCurrent', data.user)
-      this.$cookies.set('user', state.current)
     } catch (error) {
       if (error.response.status === 422) {
         commit('setValidation', error.response.data)

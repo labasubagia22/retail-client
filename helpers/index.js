@@ -1,2 +1,4 @@
 import { objToFormData } from './form-data'
-export { objToFormData }
+import { getRedirectPath } from './redirect'
+
+export { objToFormData, getRedirectPath }

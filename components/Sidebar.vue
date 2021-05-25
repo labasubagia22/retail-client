@@ -18,7 +18,13 @@
         </p>
       </div>
 
-      <div class="mt-6 flex flex-col">
+      <div v-if="user && user.store" class="text-sm text-center mt-6">
+        <p class="">Store</p>
+        <p class="text-blue-400">{{ user.store.name }}</p>
+        <p class="text-xs text-gray-500">{{ user.store.address }}</p>
+      </div>
+
+      <div class="mt-8 flex flex-col">
         <nuxt-link
           v-for="(v, i) in menu"
           :key="i"

@@ -49,6 +49,8 @@
 </template>
 
 <script>
+import { getRedirectPath } from '../helpers'
+
 export default {
   name: 'Login',
   middleware: ['guest'],
@@ -71,7 +73,8 @@ export default {
   methods: {
     async handleSubmit() {
       await this.$store.dispatch('user/login', this.form)
-      if (this.$store.state.user.current) this.$router.push('/')
+      if (!this.$store.state.user.current) return
+      this.$router.push(getRedirectPath(this.$store.state.user.current.type))
     },
   },
 }

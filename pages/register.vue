@@ -161,7 +161,7 @@ export default {
   methods: {
     async handleSubmit() {
       await this.$store.dispatch('user/register', this.form)
-      if (this.$store.state.user.current) this.$router.push('/')
+      this.$router.push('/login')
     },
   },
 }
