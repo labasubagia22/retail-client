@@ -30,7 +30,10 @@ export const actions = {
     try {
       const response = await this.$axios.post(`/brand`, { name })
       const data = await response.data
-      if (data.success) dispatch('loadList')
+      if (data.success) {
+        dispatch('loadList')
+        dispatch('clearError')
+      }
     } catch (error) {
       if (error.response.status === 422) {
         commit('setValidation', error.response.data)
@@ -44,7 +47,10 @@ export const actions = {
     try {
       const response = await this.$axios.put(`/brand/${id}`, { name })
       const data = await response.data
-      if (data.success) dispatch('loadList')
+      if (data.success) {
+        dispatch('loadList')
+        dispatch('clearError')
+      }
     } catch (error) {
       if (error.response.status === 422) {
         commit('setValidation', error.response.data)
@@ -58,7 +64,10 @@ export const actions = {
     try {
       const response = await this.$axios.delete(`/brand/${id}`)
       const data = await response.data
-      if (data.success) dispatch('loadList')
+      if (data.success) {
+        dispatch('loadList')
+        dispatch('clearError')
+      }
     } catch (error) {
       commit('setError', error)
     }

@@ -30,14 +30,17 @@ export const actions = {
   },
 
   async create(
-    { commit, dispatch },
+    { commit, dispatch, rootState },
     { stock, price, store_id, product_id, vendor_id }
   ) {
     try {
       const payload = { stock, price, store_id, product_id, vendor_id }
       const response = await this.$axios.post(`/inventory`, payload)
       const data = await response.data
-      if (data.success) dispatch('loadList')
+      if (data.success) {
+        dispatch('loadList', rootState.user.current.store_id)
+        dispatch('clearError')
+      }
     } catch (error) {
       if (error.response.status === 422) {
         commit('setValidation', error.response.data)
@@ -48,14 +51,17 @@ export const actions = {
   },
 
   async update(
-    { commit, dispatch },
+    { commit, dispatch, rootState },
     { id, stock, price, store_id, product_id, vendor_id }
   ) {
     try {
       const payload = { stock, price, store_id, product_id, vendor_id }
       const response = await this.$axios.put(`/inventory/${id}`, payload)
       const data = await response.data
-      if (data.success) dispatch('loadList')
+      if (data.success) {
+        dispatch('loadList', rootState.user.current.store_id)
+        dispatch('clearError')
+      }
     } catch (error) {
       if (error.response.status === 422) {
         commit('setValidation', error.response.data)
@@ -65,11 +71,14 @@ export const actions = {
     }
   },
 
-  async delete({ commit, dispatch }, id) {
+  async delete({ commit, dispatch, rootState }, id) {
     try {
       const response = await this.$axios.delete(`/inventory/${id}`)
       const data = await response.data
-      if (data.success) dispatch('loadList')
+      if (data.success) {
+        dispatch('loadList', rootState.user.current.store_id)
+        dispatch('clearError')
+      }
     } catch (error) {
       commit('setError', error)
     }

@@ -12,8 +12,10 @@ export const actions = {
     try {
       const response = await this.$axios.post('/auth/login', payload)
       const data = await response.data
-      commit('setCurrent', data.user)
-      this.$cookies.set('user', state.current)
+      if (data.success) {
+        commit('setCurrent', data.user)
+        this.$cookies.set('user', state.current)
+      }
     } catch (error) {
       if (error.response.status === 422) {
         commit('setValidation', error.response.data)
@@ -32,7 +34,9 @@ export const actions = {
     try {
       const response = await this.$axios.post('/auth/register', payload)
       const data = await response.data
-      commit('setCurrent', data.user)
+      if (data.success) {
+        commit('setCurrent', data.user)
+      }
     } catch (error) {
       if (error.response.status === 422) {
         commit('setValidation', error.response.data)

@@ -38,7 +38,10 @@ export const actions = {
       const fd = objToFormData(payload)
       const response = await this.$axios.post(`/product`, fd)
       const data = await response.data
-      if (data.success) dispatch('loadList')
+      if (data.success) {
+        dispatch('loadList')
+        dispatch('clearError')
+      }
     } catch (error) {
       if (error.response.status === 422) {
         commit('setValidation', error.response.data)
@@ -57,7 +60,10 @@ export const actions = {
       const fd = objToFormData(payload)
       const response = await this.$axios.post(`/product/${id}`, fd)
       const data = await response.data
-      if (data.success) dispatch('loadList')
+      if (data.success) {
+        dispatch('loadList')
+        dispatch('clearError')
+      }
     } catch (error) {
       if (error.response.status === 422) {
         commit('setValidation', error.response.data)
@@ -71,7 +77,10 @@ export const actions = {
     try {
       const response = await this.$axios.delete(`/product/${id}`)
       const data = await response.data
-      if (data.success) dispatch('loadList')
+      if (data.success) {
+        dispatch('loadList')
+        dispatch('clearError')
+      }
     } catch (error) {
       commit('setError', error)
     }
