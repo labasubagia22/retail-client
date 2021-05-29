@@ -27,6 +27,22 @@
         {{ validation.products.join() }}
       </p>
 
+      <!-- customer -->
+      <select
+        v-model="form.customer_id"
+        class="px-3 py-2 text-sm rounded bg-white border-2 w-full mt-4"
+      >
+        <option class="text-sm text-gray-500" value="">Select Customer</option>
+        <option
+          v-for="p in optionCustomer"
+          :key="p.id"
+          :value="p.id"
+          class="text-sm cursor-pointer"
+        >
+          {{ p.email }}
+        </option>
+      </select>
+
       <div v-if="form.products.length" class="mt-4">
         <div v-for="(v, i) in form.products" :key="i" class="w-full mt-2 flex">
           <select
@@ -128,6 +144,7 @@ export default {
   data() {
     return {
       form: {
+        customer_id: '',
         products: [],
       },
       isFormOpen: false,
@@ -147,6 +164,9 @@ export default {
     optionInventory() {
       return this.$store.state.inventory.list.filter((v) => v.stock)
     },
+    optionCustomer() {
+      return this.$store.state.user.list.filter((v) => v.type === 'customer')
+    },
     user() {
       return this.$store.state.user.current
     },
@@ -154,6 +174,7 @@ export default {
   created() {
     this.$store.dispatch('inventory/loadList', this.user.store_id)
     this.$store.dispatch('order/loadList')
+    this.$store.dispatch('user/loadAllByType', 'customer')
   },
   methods: {
     handleAdd() {
@@ -173,6 +194,7 @@ export default {
     clearForm() {
       this.$store.dispatch('order/clearError')
       this.form = {
+        customer_id: '',
         products: [],
       }
     },

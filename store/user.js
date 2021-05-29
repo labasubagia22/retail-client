@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 export const state = () => ({
+  list: [],
   current: null,
   validation: null,
   error: null,
@@ -21,6 +22,18 @@ export const actions = {
         commit('setValidation', error.response.data)
         return
       }
+      commit('setError', error)
+    }
+  },
+
+  async loadAllByType({ commit }, type) {
+    try {
+      const response = await this.$axios.get('/user/type', {
+        params: { type },
+      })
+      const data = await response.data
+      commit('setList', data.users)
+    } catch (error) {
       commit('setError', error)
     }
   },
@@ -76,5 +89,8 @@ export const mutations = {
   },
   setError(state, error) {
     state.error = error
+  },
+  setList(state, users) {
+    state.list = users
   },
 }
