@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 export const state = () => ({
   list: [],
-  single: null,
+  single: { items: [] },
   validation: null,
   error: null,
 })
