@@ -136,7 +136,6 @@ export default {
     handleSelectedStoreChanged() {
       const storeId = this.selectedStoreId
       this.$store.dispatch('inventory/loadList', storeId)
-      this.$store.commit('cart/setProducts', [])
     },
     async hanldleLogout() {
       await this.$store.dispatch('user/logout')
