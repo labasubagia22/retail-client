@@ -97,7 +97,9 @@ export default {
       let total = 0
       this.products.forEach((p) => {
         const inventory = this.inventory.find((i) => i.product_id === p.id)
-        total += inventory.price * p.amount
+        if (inventory) {
+          total += inventory.price * p.amount
+        }
       })
       return total
     },

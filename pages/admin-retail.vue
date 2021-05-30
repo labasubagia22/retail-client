@@ -27,10 +27,10 @@ export default {
       menu: [
         { link: '/admin-retail', label: 'Dashboard' },
         { link: '/admin-retail/store', label: 'Store' },
-        { link: '/admin-retail/product', label: 'Product' },
-        { link: '/admin-retail/product-type', label: 'Product Type' },
         { link: '/admin-retail/brand', label: 'Brand' },
         { link: '/admin-retail/vendor', label: 'Vendor' },
+        { link: '/admin-retail/product-type', label: 'Product Type' },
+        { link: '/admin-retail/product', label: 'Product' },
       ],
     }
   },
