@@ -111,6 +111,7 @@
           <th class="border-2 p-2">Customer</th>
           <th class="border-2 p-2">Status</th>
           <th class="border-2 p-2">Order Type</th>
+          <th class="border-2 p-2">Date</th>
           <th class="border-2 p-2">Total</th>
           <th class="border-2 p-2 text-center">Action</th>
         </tr>
@@ -124,6 +125,9 @@
           <td class="border-2 p-2">{{ v.status.split('_').join(' ') }}</td>
           <td class="border-2 p-2">
             {{ v.customer_id == v.created_by ? 'Online' : 'Offline' }}
+          </td>
+          <td class="border-2 p-2">
+            {{ $moment(v.created_at).format('DD MMMM YYYY') }}
           </td>
           <td class="border-2 p-2">{{ v.total_price }}</td>
           <td class="border-2 p-2 text-center flex justify-center">

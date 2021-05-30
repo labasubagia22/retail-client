@@ -6,8 +6,9 @@
       <thead>
         <tr class="text-left text-sm">
           <th class="border-2 p-2">Order ID</th>
-          <th class="border-2 p-2">Store</th>
+          <!-- <th class="border-2 p-2">Store</th> -->
           <th class="border-2 p-2">Status</th>
+          <th class="border-2 px-2">Date</th>
           <th class="border-2 p-2">Total</th>
           <th class="border-2 p-2 text-center">Action</th>
         </tr>
@@ -15,8 +16,11 @@
       <tbody class="text-sm">
         <tr v-for="(v, i) in list" :key="i">
           <td class="border-2 p-2">{{ v.id }}</td>
-          <td class="border-2 p-2">{{ v.store.name }}</td>
+          <!-- <td class="border-2 p-2">{{ v.store ? v.store.name : '' }}</td> -->
           <td class="border-2 p-2">{{ v.status.split('_').join(' ') }}</td>
+          <td class="border-2 p-2">
+            {{ $moment(v.created_at).format('DD MMMM YYYY') }}
+          </td>
           <td class="border-2 p-2">{{ v.total_price }}</td>
           <td class="border-2 p-2 text-center flex justify-center">
             <nuxt-link
@@ -50,7 +54,9 @@ export default {
   layout: 'shop',
   computed: {
     list() {
-      return this.$store.state.order.list
+      return this.$store.state.order.list.filter(
+        (v) => v.store_id === this.selectedStoreId
+      )
     },
     validation() {
       return this.$store.state.order.validation
