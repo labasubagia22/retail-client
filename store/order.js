@@ -48,9 +48,9 @@ export const actions = {
     }
   },
 
-  async update({ commit, dispatch }, { id, name }) {
+  async updateStatus({ commit, dispatch }, { id, status }) {
     try {
-      const response = await this.$axios.put(`/order/${id}`, { name })
+      const response = await this.$axios.post(`/order/${id}/status`, { status })
       const data = await response.data
       if (data.success) {
         dispatch('loadList')

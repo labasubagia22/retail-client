@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       menu: [
-        { link: '/admin-retail', label: 'Home' },
+        { link: '/admin-retail', label: 'Dashboard' },
         { link: '/admin-retail/store', label: 'Store' },
         { link: '/admin-retail/product', label: 'Product' },
         { link: '/admin-retail/product-type', label: 'Product Type' },

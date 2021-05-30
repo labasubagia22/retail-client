@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 export const state = () => ({
+  selectedStoreId: null,
   list: [],
   single: null,
   validation: null,
@@ -83,6 +84,9 @@ export const actions = {
 export const mutations = {
   setList(state, list) {
     state.list = list
+  },
+  setSelectedStoreId(state, id) {
+    state.selectedStoreId = id
   },
   setSingle(state, store) {
     state.single = store

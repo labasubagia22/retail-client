@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       menu: [
-        { link: '/admin-store', label: 'Home' },
+        { link: '/admin-store', label: 'Dashboard' },
         { link: '/admin-store/order', label: 'Order' },
         { link: '/admin-store/inventory', label: 'Inventory' },
       ],

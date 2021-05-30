@@ -7,7 +7,9 @@
   >
     <section>
       <div class="text-center mt-2">
-        <p class="text-xl text-blue-600">Mahabarata</p>
+        <router-link to="/" class="text-center mt-2 text-lg">
+          Mahabarata
+        </router-link>
         <p class="text text-gray-400">Departement Store</p>
       </div>
 
@@ -29,7 +31,7 @@
           v-for="(v, i) in menu"
           :key="i"
           :class="[
-            'p-2 px-3 mb-3 rounded text-sm cursor-pointer',
+            'p-2 px-3 mb-3 rounded text-sm cursor-pointer text-center',
             'hover:bg-blue-400 hover:text-white',
             isMenuActive(v)
               ? 'bg-blue-500 text-white'
@@ -69,7 +71,7 @@ export default {
   methods: {
     async handleLogout() {
       await this.$store.dispatch('user/logout')
-      if (!this.$store.state.user.current) this.$router.push('/login')
+      if (!this.$store.state.user.current) this.$router.push('/')
     },
     isMenuActive(menu) {
       return this.$route.path === menu.link
