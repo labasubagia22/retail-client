@@ -52,6 +52,7 @@
 export default {
   name: 'Order',
   layout: 'shop',
+  middleware: ['auth', 'customer'],
   computed: {
     list() {
       return this.$store.state.order.list.filter(

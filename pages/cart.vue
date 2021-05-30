@@ -27,7 +27,7 @@
                 :value="getProductAmount(v.product_id)"
                 @input="
                   (event) =>
-                    $store.commit('cart/setProductAmount', {
+                    $store.commit('cart/productSetAmount', {
                       id: v.product_id,
                       amount: parseInt(event.target.value),
                     })
@@ -38,7 +38,7 @@
               <button
                 type="button"
                 class="p-1 px-2 text-xs rounded bg-red-500 text-white"
-                @click="$store.commit('cart/removeProduct', v.product_id)"
+                @click="$store.dispatch('cart/productRemove', v.product_id)"
               >
                 Delete
               </button>
@@ -63,9 +63,10 @@
 export default {
   name: 'Cart',
   layout: 'shop',
+  middleware: ['auth', 'customer'],
   computed: {
     products() {
-      return this.$store.state.cart.products
+      return this.$store.getters['cart/getCartProducts'](this.selectedStoreId)
     },
     inventory() {
       return this.$store.state.inventory.list.filter((v) => {
@@ -84,6 +85,9 @@ export default {
   },
   created() {
     this.$store.dispatch('inventory/loadList', this.selectedStoreId)
+  },
+  mounted() {
+    this.$store.dispatch('cart/initialize')
   },
   methods: {
     clearForm() {
@@ -104,7 +108,7 @@ export default {
       this.refresh()
     },
     refresh() {
-      this.$store.commit('cart/setProducts', [])
+      this.$store.dispatch('cart/productClear')
       this.$store.dispatch('inventory/loadList', this.selectedStoreId)
     },
   },

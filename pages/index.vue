@@ -38,20 +38,21 @@ export default {
   computed: {
     inventory() {
       return this.$store.state.inventory.list.map((v) => {
-        const isAdded = this.$store.state.cart.products.find(
-          (p) => p.id === v.product_id
-        )
+        const isAdded = this.cartProducts.find((p) => p.id === v.product_id)
         return {
           ...v,
           is_on_cart: isAdded,
         }
       })
     },
+    cartProducts() {
+      return this.$store.getters['cart/getCartProducts'](this.selectedStoreId)
+    },
     user() {
       return this.$store.state.user.current
     },
-    cartProducts() {
-      return this.$store.state.cart.products
+    selectedStoreId() {
+      return this.$store.state.store.selectedStoreId
     },
   },
   watch: {
@@ -66,17 +67,13 @@ export default {
       if (inventory.stock <= 0) return false
       return !inventory.is_on_cart
     },
-    handleLogout() {
-      this.$store.dispatch('user/logout')
-      this.$router.push('/login')
-    },
     handleAddToCart(inventory) {
       if (inventory.is_on_cart) return
       if (inventory.stock <= 0) return
-      this.$store.commit('cart/setProducts', [
-        ...this.cartProducts,
-        { id: inventory.product_id, amount: 1 },
-      ])
+      this.$store.dispatch('cart/productAdd', {
+        id: inventory.product_id,
+        amount: 1,
+      })
     },
   },
 }

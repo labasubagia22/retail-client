@@ -14,6 +14,7 @@ export default {
   components: { HomeHeader },
   created() {
     this.$store.dispatch('user/loadCurrent')
+    this.$store.dispatch('cart/initialize')
   },
 }
 </script>

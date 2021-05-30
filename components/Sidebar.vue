@@ -71,7 +71,10 @@ export default {
   methods: {
     async handleLogout() {
       await this.$store.dispatch('user/logout')
-      if (!this.$store.state.user.current) this.$router.push('/')
+      if (!this.$store.state.user.current) {
+        this.$store.dispatch('cart/cartClear')
+        this.$router.push('/')
+      }
     },
     isMenuActive(menu) {
       return this.$route.path === menu.link

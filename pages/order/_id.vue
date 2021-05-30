@@ -37,6 +37,7 @@
 export default {
   name: 'OrderDetail',
   layout: 'shop',
+  middleware: ['auth', 'customer'],
   computed: {
     order() {
       return this.$store.state.order.single
