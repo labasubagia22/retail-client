@@ -50,7 +50,9 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('inventory/loadList', this.selectedStoreId)
+    this.$store.dispatch('inventory/loadList', {
+      store_id: this.selectedStoreId,
+    })
     this.$store.dispatch('order/loadSingle', this.$route.params.id)
   },
 }

@@ -3,7 +3,26 @@
     <!-- product -->
     <div class="mt-2">
       <h1 class="text-lg">Products</h1>
-      <div class="mt-4 grid grid-cols-4 gap-8">
+
+      <div class="w-full mt-4">
+        <p class="text-gray-500 text-sm">Product Type Filter</p>
+        <select
+          v-model="productTypeId"
+          class="px-3 py-2 text-sm rounded bg-white border-2 w-full mt-2"
+        >
+          <option class="text-sm text-gray-500" value="">All</option>
+          <option
+            v-for="p in optionProductTypes"
+            :key="p.id"
+            :value="p.id"
+            class="text-sm cursor-pointer"
+          >
+            {{ p.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="mt-6 grid grid-cols-4 gap-8">
         <div
           v-for="(v, i) in inventory"
           :key="i"
@@ -35,6 +54,11 @@
 export default {
   name: 'Index',
   layout: 'shop',
+  data() {
+    return {
+      productTypeId: '',
+    }
+  },
   computed: {
     inventory() {
       return this.$store.state.inventory.list.map((v) => {
@@ -48,6 +72,9 @@ export default {
     cartProducts() {
       return this.$store.getters['cart/getCartProducts'](this.selectedStoreId)
     },
+    optionProductTypes() {
+      return this.$store.state.productType.list
+    },
     user() {
       return this.$store.state.user.current
     },
@@ -59,6 +86,21 @@ export default {
     cartProducts() {
       this.$forceUpdate()
     },
+    productTypeId() {
+      this.$store.dispatch('inventory/loadList', {
+        store_id: this.selectedStoreId,
+        product_type_id: this.productTypeId ? this.productTypeId : null,
+      })
+    },
+    selectedStoreId() {
+      this.productTypeId = ''
+    },
+    user() {
+      this.productTypeId = ''
+    },
+  },
+  created() {
+    this.$store.dispatch('productType/loadList')
   },
   methods: {
     isAddToCartShow(inventory) {

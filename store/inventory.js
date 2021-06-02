@@ -7,10 +7,10 @@ export const state = () => ({
 })
 
 export const actions = {
-  async loadList({ commit }, store_id) {
+  async loadList({ commit }, { store_id, product_type_id = null }) {
     try {
       const response = await this.$axios.get('/inventory', {
-        params: { store_id },
+        params: { store_id, product_type_id },
       })
       const data = await response.data
       commit('setList', data.inventories)

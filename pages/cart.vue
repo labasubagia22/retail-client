@@ -105,7 +105,9 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('inventory/loadList', this.selectedStoreId)
+    this.$store.dispatch('inventory/loadList', {
+      store_id: this.selectedStoreId,
+    })
   },
   mounted() {
     this.$store.dispatch('cart/initialize')
@@ -130,7 +132,9 @@ export default {
     },
     refresh() {
       this.$store.dispatch('cart/productClear')
-      this.$store.dispatch('inventory/loadList', this.selectedStoreId)
+      this.$store.dispatch('inventory/loadList', {
+        store_ide: this.selectedStoreId,
+      })
     },
   },
 }

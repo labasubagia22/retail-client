@@ -54,7 +54,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('inventory/loadList', this.user.store_id)
+    this.$store.dispatch('inventory/loadList', { store_id: this.user.store_id })
     this.$store.dispatch('order/loadSingle', this.$route.params.id)
   },
 }

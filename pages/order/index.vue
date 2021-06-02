@@ -94,7 +94,9 @@ export default {
 
     refresh() {
       this.$store.dispatch('order/loadList')
-      this.$store.dispatch('inventory/loadList', this.selectedStoreId)
+      this.$store.dispatch('inventory/loadList', {
+        store_id: this.selectedStoreId,
+      })
     },
   },
 }
