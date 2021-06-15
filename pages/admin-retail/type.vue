@@ -102,7 +102,7 @@ export default {
       return this.$store.state.productType.error
     },
   },
-  created() {
+  mounted() {
     this.$store.dispatch('productType/loadList')
   },
   methods: {

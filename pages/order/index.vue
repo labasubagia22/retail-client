@@ -72,7 +72,7 @@ export default {
       return this.$store.state.store.selectedStoreId
     },
   },
-  created() {
+  mounted() {
     this.$store.dispatch('order/loadList')
   },
   methods: {

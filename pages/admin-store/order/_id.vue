@@ -53,7 +53,7 @@ export default {
       return this.$store.state.user.current
     },
   },
-  created() {
+  mounted() {
     this.$store.dispatch('inventory/loadList', { store_id: this.user.store_id })
     this.$store.dispatch('order/loadSingle', this.$route.params.id)
   },

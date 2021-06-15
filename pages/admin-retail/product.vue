@@ -202,7 +202,7 @@ export default {
       return this.$store.state.brand.list
     },
   },
-  created() {
+  mounted() {
     this.$store.dispatch('product/loadList')
     this.$store.dispatch('productType/loadList')
     this.$store.dispatch('brand/loadList')

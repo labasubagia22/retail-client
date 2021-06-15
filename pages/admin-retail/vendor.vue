@@ -118,7 +118,7 @@ export default {
       return this.$store.state.vendor.error
     },
   },
-  created() {
+  mounted() {
     this.$store.dispatch('vendor/loadList')
   },
   methods: {

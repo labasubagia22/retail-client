@@ -118,7 +118,7 @@ export default {
       return this.$store.state.store.error
     },
   },
-  created() {
+  mounted() {
     this.$store.dispatch('store/loadList')
   },
   methods: {
