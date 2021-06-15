@@ -102,7 +102,7 @@ export default {
       return this.$store.state.brand.error
     },
   },
-  created() {
+  mounted() {
     this.$store.dispatch('brand/loadList')
   },
   methods: {

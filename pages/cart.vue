@@ -104,12 +104,10 @@ export default {
       return total
     },
   },
-  created() {
+  mounted() {
     this.$store.dispatch('inventory/loadList', {
       store_id: this.selectedStoreId,
     })
-  },
-  mounted() {
     this.$store.dispatch('cart/initialize')
   },
   methods: {

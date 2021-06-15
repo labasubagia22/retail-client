@@ -49,7 +49,7 @@ export default {
       return this.$store.state.store.selectedStoreId
     },
   },
-  created() {
+  mounted() {
     this.$store.dispatch('inventory/loadList', {
       store_id: this.selectedStoreId,
     })

@@ -99,7 +99,7 @@ export default {
       this.productTypeId = ''
     },
   },
-  created() {
+  mounted() {
     this.$store.dispatch('productType/loadList')
   },
   methods: {
