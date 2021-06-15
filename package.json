@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
+    "build": "nuxt generate",
+    "start": "serve dist",
     "generate": "nuxt generate",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint": "npm run lint:js"
@@ -39,10 +39,7 @@
     "husky": "^4.3.8",
     "lint-staged": "^10.5.4",
     "postcss": "^8.2.8",
-    "prettier": "^2.2.1"
-  },
-  "engines": {
-    "node": "16.x",
-    "npm": "7.x"
+    "prettier": "^2.2.1",
+    "serve": "^12.0.0"
   }
 }
