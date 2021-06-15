@@ -42,7 +42,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'https://mahabharata-retail-server.herokuapp.com',
+    baseURL: process.env.BASE_URL || 'http://localhost:8000',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
