@@ -2,6 +2,7 @@
   <div>
     <section class="flex">
       <button
+        v-if="optionProduct.length"
         class="bg-green-500 p-1 px-3 rounded text-white"
         @click="handleAdd"
       >
@@ -188,7 +189,10 @@ export default {
       return this.$store.state.inventory.error
     },
     optionProduct() {
-      return this.$store.state.product.list
+      const addedIds = this.list.map((v) => v.product_id)
+      return this.$store.state.product.list.filter(
+        (v) => !addedIds.includes(v.id)
+      )
     },
     optionVendor() {
       return this.$store.state.vendor.list

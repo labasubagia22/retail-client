@@ -38,7 +38,7 @@ export const actions = {
       const response = await this.$axios.post(`/inventory`, payload)
       const data = await response.data
       if (data.success) {
-        dispatch('loadList', rootState.user.current.store_id)
+        dispatch('loadList', { store_id: rootState.user.current.store_id })
         dispatch('clearError')
       }
     } catch (error) {
@@ -59,7 +59,7 @@ export const actions = {
       const response = await this.$axios.put(`/inventory/${id}`, payload)
       const data = await response.data
       if (data.success) {
-        dispatch('loadList', rootState.user.current.store_id)
+        dispatch('loadList', { store_id: rootState.user.current.store_id })
         dispatch('clearError')
       }
     } catch (error) {
@@ -76,7 +76,7 @@ export const actions = {
       const response = await this.$axios.delete(`/inventory/${id}`)
       const data = await response.data
       if (data.success) {
-        dispatch('loadList', rootState.user.current.store_id)
+        dispatch('loadList', { store_id: rootState.user.current.store_id })
         dispatch('clearError')
       }
     } catch (error) {
