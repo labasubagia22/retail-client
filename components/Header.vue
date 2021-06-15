@@ -91,12 +91,12 @@ export default {
           isShow: true,
         },
         {
-          path: '/admin-retail',
+          path: '/admin-retail/dashboard',
           label: 'Admin',
           isShow: this.user && this.user.type === 'admin_retail',
         },
         {
-          path: '/admin-store',
+          path: '/admin-store/dashboard',
           label: 'Admin',
           isShow: this.user && this.user.type === 'admin_store',
         },
