@@ -77,7 +77,7 @@ export default {
       }
     },
     isMenuActive(menu) {
-      return this.$route.path === menu.link
+      return this.$route.path.includes(menu.link)
     },
   },
 }

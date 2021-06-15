@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       menu: [
-        { link: '/admin-retail', label: 'Dashboard' },
+        { link: '/admin-retail/dashboard', label: 'Dashboard' },
         { link: '/admin-retail/store', label: 'Store' },
         { link: '/admin-retail/brand', label: 'Brand' },
         { link: '/admin-retail/vendor', label: 'Vendor' },
@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     title() {
-      const menu = this.menu.find((v) => v.link === this.$route.path)
+      const menu = this.menu.find((v) => this.$route.path.includes(v.link))
       return menu ? menu.label : null
     },
   },

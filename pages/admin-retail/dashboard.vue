@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'Index',
+  name: 'Dashboard',
   data() {
     return {
       data: 'sdd',
