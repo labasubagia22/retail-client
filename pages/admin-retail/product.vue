@@ -203,18 +203,19 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('product/loadList')
-    this.$store.dispatch('productType/loadList')
-    this.$store.dispatch('brand/loadList')
+    this.loadingContainer(async () => {
+      await Promise.all([
+        this.$store.dispatch('product/loadList'),
+        this.$store.dispatch('productType/loadList'),
+        this.$store.dispatch('brand/loadList'),
+      ])
+    })
   },
   methods: {
     handleImageChange(e) {
       const files = e.target.files
       if (!files.length) return
       this.form.image = files[0]
-    },
-    handleDelete(id) {
-      this.$store.dispatch('product/delete', id)
     },
     handleEdit(v) {
       this.clearForm()
@@ -246,13 +247,23 @@ export default {
         image: null,
       }
     },
-    async handleSave() {
-      if (this.form.id) await this.$store.dispatch('product/update', this.form)
-      else await this.$store.dispatch('product/create', this.form)
-      if (!this.error && !this.validation) {
-        this.clearForm()
-        this.isFormOpen = false
-      }
+    handleDelete(id) {
+      this.loadingContainer(async () => {
+        await this.$store.dispatch('product/delete', id)
+      })
+    },
+    handleSave() {
+      this.loadingContainer(async () => {
+        if (this.form.id) {
+          await this.$store.dispatch('product/update', this.form)
+        } else {
+          await this.$store.dispatch('product/create', this.form)
+        }
+        if (!this.error && !this.validation) {
+          this.clearForm()
+          this.isFormOpen = false
+        }
+      })
     },
   },
 }

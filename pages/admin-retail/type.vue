@@ -103,12 +103,11 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('productType/loadList')
+    this.loadingContainer(async () => {
+      await this.$store.dispatch('productType/loadList')
+    })
   },
   methods: {
-    handleDelete(id) {
-      this.$store.dispatch('productType/delete', id)
-    },
     handleEdit(v) {
       this.clearForm()
       this.isFormOpen = true
@@ -134,14 +133,23 @@ export default {
         address: null,
       }
     },
-    async handleSave() {
-      if (this.form.id)
-        await this.$store.dispatch('productType/update', this.form)
-      else await this.$store.dispatch('productType/create', this.form)
-      if (!this.error && !this.validation) {
-        this.clearForm()
-        this.isFormOpen = false
-      }
+    handleDelete(id) {
+      this.loadingContainer(async () => {
+        await this.$store.dispatch('productType/delete', id)
+      })
+    },
+    handleSave() {
+      this.loadingContainer(async () => {
+        if (this.form.id) {
+          await this.$store.dispatch('productType/update', this.form)
+        } else {
+          await this.$store.dispatch('productType/create', this.form)
+        }
+        if (!this.error && !this.validation) {
+          this.clearForm()
+          this.isFormOpen = false
+        }
+      })
     },
   },
 }

@@ -83,16 +83,20 @@ export default {
       this.handleChangeProduct()
     },
   },
-  async mounted() {
-    await this.$store.dispatch('product/loadList')
-    if (this.products.length) {
-      this.product = faker.random.arrayElement(this.products)
-    }
+  mounted() {
+    this.loadingContainer(async () => {
+      await this.$store.dispatch('product/loadList')
+      if (this.products.length) {
+        this.product = faker.random.arrayElement(this.products)
+      }
+    })
   },
   methods: {
     handleChangeProduct() {
-      this.$store.dispatch('query/loadTopBuyWithin', {
-        product_id: this.product.id,
+      this.loadingContainer(async () => {
+        await this.$store.dispatch('query/loadTopBuyWithin', {
+          product_id: this.product.id,
+        })
       })
     },
   },

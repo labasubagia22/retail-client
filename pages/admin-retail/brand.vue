@@ -103,12 +103,11 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('brand/loadList')
+    this.loadingContainer(async () => {
+      await this.$store.dispatch('brand/loadList')
+    })
   },
   methods: {
-    handleDelete(id) {
-      this.$store.dispatch('brand/delete', id)
-    },
     handleEdit(v) {
       this.clearForm()
       this.isFormOpen = true
@@ -134,13 +133,20 @@ export default {
         address: null,
       }
     },
-    async handleSave() {
-      if (this.form.id) await this.$store.dispatch('brand/update', this.form)
-      else await this.$store.dispatch('brand/create', this.form)
-      if (!this.error && !this.validation) {
-        this.clearForm()
-        this.isFormOpen = false
-      }
+    handleDelete(id) {
+      this.loadingContainer(async () => {
+        await this.$store.dispatch('brand/delete', id)
+      })
+    },
+    handleSave() {
+      this.loadingContainer(async () => {
+        if (this.form.id) await this.$store.dispatch('brand/update', this.form)
+        else await this.$store.dispatch('brand/create', this.form)
+        if (!this.error && !this.validation) {
+          this.clearForm()
+          this.isFormOpen = false
+        }
+      })
     },
   },
 }

@@ -13,8 +13,12 @@ export default {
   name: 'ShopLayout',
   components: { HomeHeader },
   created() {
-    this.$store.dispatch('user/loadCurrent')
-    this.$store.dispatch('cart/initialize')
+    this.loadingContainer(async () => {
+      await Promise.all([
+        this.$store.dispatch('user/loadCurrent'),
+        this.$store.dispatch('cart/initialize'),
+      ])
+    })
   },
 }
 </script>

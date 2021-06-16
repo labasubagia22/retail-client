@@ -119,12 +119,11 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('store/loadList')
+    this.loadingContainer(async () => {
+      await this.$store.dispatch('store/loadList')
+    })
   },
   methods: {
-    handleDelete(id) {
-      this.$store.dispatch('store/delete', id)
-    },
     handleEdit(v) {
       this.clearForm()
       this.isFormOpen = true
@@ -150,13 +149,20 @@ export default {
         address: null,
       }
     },
-    async handleSave() {
-      if (this.form.id) await this.$store.dispatch('store/update', this.form)
-      else await this.$store.dispatch('store/create', this.form)
-      if (!this.error && !this.validation) {
-        this.clearForm()
-        this.isFormOpen = false
-      }
+    handleDelete(id) {
+      this.loadingContainer(async () => {
+        await this.$store.dispatch('store/delete', id)
+      })
+    },
+    handleSave() {
+      this.loadingContainer(async () => {
+        if (this.form.id) await this.$store.dispatch('store/update', this.form)
+        else await this.$store.dispatch('store/create', this.form)
+        if (!this.error && !this.validation) {
+          this.clearForm()
+          this.isFormOpen = false
+        }
+      })
     },
   },
 }

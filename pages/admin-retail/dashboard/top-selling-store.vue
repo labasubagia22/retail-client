@@ -29,7 +29,9 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('query/loadTopSellingStore', {})
+    this.loadingContainer(async () => {
+      await this.$store.dispatch('query/loadTopSellingStore', {})
+    })
   },
 }
 </script>

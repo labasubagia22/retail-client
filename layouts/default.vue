@@ -6,8 +6,11 @@
 
 <script>
 export default {
+  name: 'DefaultLayout',
   created() {
-    this.$store.dispatch('user/loadCurrent')
+    this.loadingContainer(async () => {
+      await this.$store.dispatch('user/loadCurrent')
+    })
   },
 }
 </script>

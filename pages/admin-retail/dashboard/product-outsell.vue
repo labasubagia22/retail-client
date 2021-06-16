@@ -119,18 +119,22 @@ export default {
       this.handleCompareProducts()
     },
   },
-  async mounted() {
-    await this.$store.dispatch('product/loadList')
-    if (this.products.length) {
-      this.product1 = faker.random.arrayElement(this.products)
-      this.product2 = faker.random.arrayElement(this.products)
-    }
+  mounted() {
+    this.loadingContainer(async () => {
+      await this.$store.dispatch('product/loadList')
+      if (this.products.length) {
+        this.product1 = faker.random.arrayElement(this.products)
+        this.product2 = faker.random.arrayElement(this.products)
+      }
+    })
   },
   methods: {
     handleCompareProducts() {
-      this.$store.dispatch('query/loadCompareOutsellTwoProduct', {
-        product_id_1: this.product1.id,
-        product_id_2: this.product2.id,
+      this.loadingContainer(async () => {
+        await this.$store.dispatch('query/loadCompareOutsellTwoProduct', {
+          product_id_1: this.product1.id,
+          product_id_2: this.product2.id,
+        })
       })
     },
   },
