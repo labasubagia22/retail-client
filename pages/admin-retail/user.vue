@@ -267,7 +267,9 @@ export default {
       }
     },
     handleDelete(id) {
-      const isConfirmed = confirm('Delete user?')
+      const isConfirmed = confirm(
+        'Delete user will remove other data that correlated to this user, Are you sure?'
+      )
       if (!isConfirmed) return
       this.loadingContainer(async () => {
         await this.$store.dispatch('user/delete', id)

@@ -134,6 +134,10 @@ export default {
       }
     },
     handleDelete(id) {
+      const isConfirmed = confirm(
+        'Delete product type will remove other data that correlated to this product type, Are you sure?'
+      )
+      if (!isConfirmed) return
       this.loadingContainer(async () => {
         await this.$store.dispatch('productType/delete', id)
       })
