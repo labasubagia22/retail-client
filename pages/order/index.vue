@@ -79,9 +79,9 @@ export default {
   },
   methods: {
     handleDone(id) {
+      const isConfirmed = confirm('Set this order as finished?')
+      if (!isConfirmed) return
       this.loadingContainer(async () => {
-        const isConfirmed = confirm('Set this order as finished?')
-        if (!isConfirmed) return
         const payload = { id, status: 'finished' }
         await this.$store.dispatch('order/updateStatus', payload)
         await this.refresh()
@@ -89,9 +89,9 @@ export default {
     },
 
     handleCancel(id) {
+      const isConfirmed = confirm('Cancel this order?')
+      if (!isConfirmed) return
       this.loadingContainer(async () => {
-        const isConfirmed = confirm('Cancel this order?')
-        if (!isConfirmed) return
         const payload = { id, status: 'cancelled' }
         await this.$store.dispatch('order/updateStatus', payload)
         await this.refresh()
