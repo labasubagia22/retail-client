@@ -22,34 +22,6 @@
       </p>
 
       <div class="mt-4">
-        <!-- Stock -->
-        <input
-          v-model="form.stock"
-          class="px-3 py-1 border-2 text-sm rounded w-full"
-          type="number"
-          placeholder="Stock"
-          required
-        />
-        <span
-          v-if="validation && validation.stock"
-          class="text-xs text-red-500 mt-1"
-          >{{ validation.stock.join() }}</span
-        >
-
-        <!-- Price -->
-        <input
-          v-model="form.price"
-          class="px-3 py-1 border-2 text-sm rounded w-full mt-4"
-          type="number"
-          placeholder="Price"
-          required
-        />
-        <span
-          v-if="validation && validation.price"
-          class="text-xs text-red-500 mt-1"
-          >{{ validation.price.join() }}</span
-        >
-
         <!-- product -->
         <div class="w-full mt-4">
           <select
@@ -61,7 +33,7 @@
               Select Product
             </option>
             <option
-              v-for="v in optionProduct"
+              v-for="v in getOptionProduct(form.product_id)"
               :key="v.id"
               :value="v.id"
               class="text-sm cursor-pointer"
@@ -102,6 +74,34 @@
           >{{ validation.vendor_id.join() }}</span
         >
       </div>
+
+      <!-- Stock -->
+      <input
+        v-model="form.stock"
+        class="px-3 py-1 border-2 text-sm rounded w-full mt-4"
+        type="number"
+        placeholder="Stock"
+        required
+      />
+      <span
+        v-if="validation && validation.stock"
+        class="text-xs text-red-500 mt-1"
+        >{{ validation.stock.join() }}</span
+      >
+
+      <!-- Price -->
+      <input
+        v-model="form.price"
+        class="px-3 py-1 border-2 text-sm rounded w-full mt-4"
+        type="number"
+        placeholder="Price"
+        required
+      />
+      <span
+        v-if="validation && validation.price"
+        class="text-xs text-red-500 mt-1"
+        >{{ validation.price.join() }}</span
+      >
 
       <div class="flex justify-center text-sm text-white mt-4">
         <button
@@ -188,11 +188,11 @@ export default {
     error() {
       return this.$store.state.inventory.error
     },
+    addedProductIds() {
+      return this.list.map((v) => v.product_id)
+    },
     optionProduct() {
-      const addedIds = this.list.map((v) => v.product_id)
-      return this.$store.state.product.list.filter(
-        (v) => !addedIds.includes(v.id)
-      )
+      return this.$store.state.product.list
     },
     optionVendor() {
       return this.$store.state.vendor.list
@@ -213,6 +213,20 @@ export default {
     })
   },
   methods: {
+    getOptionProduct(productId) {
+      return productId
+        ? this.getEditOptionProduct(productId)
+        : this.getAddOptionProduct()
+    },
+    getAddOptionProduct() {
+      return this.optionProduct.filter(
+        (v) => !this.addedProductIds.includes(v.id)
+      )
+    },
+    getEditOptionProduct(productId) {
+      const excludedIds = this.addedProductIds.filter((id) => id !== productId)
+      return this.optionProduct.filter((v) => !excludedIds.includes(v.id))
+    },
     handleEdit(v) {
       this.clearForm()
       this.isFormOpen = true
