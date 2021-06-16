@@ -34,56 +34,6 @@
           >{{ validation.name.join() }}</span
         >
 
-        <!-- type -->
-        <select
-          v-model="form.type"
-          class="mt-4 px-3 py-2 text-sm rounded bg-white border-2"
-          required
-        >
-          <option class="text-sm text-gray-500" disabled value="">
-            Select User Type
-          </option>
-          <option
-            v-for="v in optionType"
-            :key="v.value"
-            :value="v.value"
-            class="text-sm cursor-pointer"
-          >
-            {{ v.text }}
-          </option>
-        </select>
-        <span
-          v-if="validation && validation.name"
-          class="text-xs text-red-500 mt-1"
-          >{{ validation.name.join() }}</span
-        >
-
-        <!-- store_id -->
-        <div v-if="form.type === 'admin_store'" class="w-full">
-          <select
-            v-model="form.store_id"
-            class="mt-4 px-3 py-2 text-sm rounded bg-white border-2 w-full"
-            required
-          >
-            <option class="text-sm text-gray-500" disabled value="">
-              Select Store
-            </option>
-            <option
-              v-for="v in optionStore"
-              :key="v.id"
-              :value="v.id"
-              class="text-sm cursor-pointer"
-            >
-              {{ v.name }}
-            </option>
-          </select>
-          <span
-            v-if="validation && validation.store_id"
-            class="text-xs text-red-500 mt-1"
-            >{{ validation.store_id.join() }}</span
-          >
-        </div>
-
         <!-- password -->
         <input
           v-model="form.password"
@@ -94,7 +44,22 @@
         <span
           v-if="validation && validation.password"
           class="text-xs text-red-500 mt-1"
-          >{{ validation.password.join() }}</span
+        >
+          {{ validation.password.join() }}
+        </span>
+
+        <!-- address -->
+        <input
+          v-model="form.address"
+          class="px-3 py-2 border-2 text-sm rounded mt-4"
+          type="text"
+          placeholder="Address"
+          required
+        />
+        <span
+          v-if="validation && validation.address"
+          class="text-xs text-red-500 mt-1"
+          >{{ validation.address.join() }}</span
         >
 
         <p class="mt-3 text-xs text-center text-gray-500">
@@ -125,22 +90,12 @@ export default {
         password: '',
         name: '',
         store_id: '',
-        type: '',
+        type: 'customer',
         address: '',
       },
     }
   },
   computed: {
-    optionType() {
-      return [
-        { value: 'admin_retail', text: 'Admin Retail' },
-        { value: 'admin_store', text: 'Admin Store' },
-        { value: 'customer', text: 'Customer' },
-      ]
-    },
-    optionStore() {
-      return this.$store.state.store.list
-    },
     validation() {
       return this.$store.state.user.validation
     },
@@ -164,6 +119,7 @@ export default {
     handleSubmit() {
       this.loadingContainer(async () => {
         await this.$store.dispatch('user/register', this.form)
+        if (this.error) return
         this.$router.push('/login')
       })
     },

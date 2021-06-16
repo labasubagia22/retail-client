@@ -39,7 +39,7 @@ export const actions = {
   },
 
   async register(
-    { commit, state, dispatch },
+    { commit, dispatch },
     { name, email, password, address, store_id, type }
   ) {
     const payload = { name, email, password, address, store_id, type }
@@ -55,6 +55,55 @@ export const actions = {
         commit('setValidation', error.response.data)
         return
       }
+      commit('setError', error)
+    }
+  },
+
+  async add(
+    { commit, dispatch },
+    { name, email, password, address, store_id, type }
+  ) {
+    const payload = { name, email, password, address, store_id, type }
+    try {
+      dispatch('clearError')
+      const response = await this.$axios.post('/auth/register', payload)
+      const data = await response.data
+      if (data.success) await dispatch('loadAllByType')
+    } catch (error) {
+      if (error.response.status === 422) {
+        commit('setValidation', error.response.data)
+        return
+      }
+      commit('setError', error)
+    }
+  },
+
+  async update(
+    { commit, dispatch },
+    { id, name, email, password, address, store_id, type }
+  ) {
+    const payload = { name, email, password, address, store_id, type }
+    try {
+      dispatch('clearError')
+      const response = await this.$axios.put(`/user/${id}`, payload)
+      const data = await response.data
+      if (data.success) await dispatch('loadAllByType')
+    } catch (error) {
+      if (error.response.status === 422) {
+        commit('setValidation', error.response.data)
+        return
+      }
+      commit('setError', error)
+    }
+  },
+
+  async delete({ commit, dispatch }, id) {
+    try {
+      dispatch('clearError')
+      const response = await this.$axios.delete(`/user/${id}`)
+      const data = await response.data
+      if (data.success) await dispatch('loadAllByType')
+    } catch (error) {
       commit('setError', error)
     }
   },

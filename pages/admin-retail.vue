@@ -27,6 +27,7 @@ export default {
       menu: [
         { link: '/admin-retail/dashboard', label: 'Dashboard' },
         { link: '/admin-retail/store', label: 'Store' },
+        { link: '/admin-retail/user', label: 'User' },
         { link: '/admin-retail/brand', label: 'Brand' },
         { link: '/admin-retail/vendor', label: 'Vendor' },
         { link: '/admin-retail/type', label: 'Product Type' },
