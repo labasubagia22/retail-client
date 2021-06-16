@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <h1 class="mt-4">Stores</h1>
+    <h1 class="mt-4">Products</h1>
     <table class="table-auto w-full border-collapse border-2 mt-2">
       <thead>
         <tr class="text-left text-sm">
@@ -44,6 +44,8 @@
           <th class="border-2 p-2">Image</th>
           <th class="border-2 p-2">Brand</th>
           <th class="border-2 p-2">Type</th>
+          <th class="border-2 p-2">Amount</th>
+          <th class="border-2 p-2">Total</th>
         </tr>
       </thead>
       <tbody class="text-sm">
@@ -54,6 +56,8 @@
           </td>
           <td class="border-2 p-2">{{ v.type }}</td>
           <td class="border-2 p-2">{{ v.brand }}</td>
+          <td class="border-2 p-2">{{ v.amount }}</td>
+          <td class="border-2 p-2">{{ v.subtotal_price }}</td>
         </tr>
       </tbody>
     </table>
