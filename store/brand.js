@@ -31,7 +31,7 @@ export const actions = {
       const response = await this.$axios.post(`/brand`, { name })
       const data = await response.data
       if (data.success) {
-        dispatch('loadList')
+        await dispatch('loadList')
         dispatch('clearError')
       }
     } catch (error) {
@@ -48,7 +48,7 @@ export const actions = {
       const response = await this.$axios.put(`/brand/${id}`, { name })
       const data = await response.data
       if (data.success) {
-        dispatch('loadList')
+        await dispatch('loadList')
         dispatch('clearError')
       }
     } catch (error) {
@@ -65,7 +65,7 @@ export const actions = {
       const response = await this.$axios.delete(`/brand/${id}`)
       const data = await response.data
       if (data.success) {
-        dispatch('loadList')
+        await dispatch('loadList')
         dispatch('clearError')
       }
     } catch (error) {

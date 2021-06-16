@@ -36,7 +36,7 @@ export const actions = {
       })
       const data = await response.data
       if (data.success) {
-        dispatch('loadList')
+        await dispatch('loadList')
         dispatch('clearError')
       }
     } catch (error) {
@@ -53,7 +53,7 @@ export const actions = {
       const response = await this.$axios.post(`/order/${id}/status`, { status })
       const data = await response.data
       if (data.success) {
-        dispatch('loadList')
+        await dispatch('loadList')
         dispatch('clearError')
       }
     } catch (error) {

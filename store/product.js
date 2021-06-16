@@ -39,7 +39,7 @@ export const actions = {
       const response = await this.$axios.post(`/product`, fd)
       const data = await response.data
       if (data.success) {
-        dispatch('loadList')
+        await dispatch('loadList')
         dispatch('clearError')
       }
     } catch (error) {
@@ -61,7 +61,7 @@ export const actions = {
       const response = await this.$axios.post(`/product/${id}`, fd)
       const data = await response.data
       if (data.success) {
-        dispatch('loadList')
+        await dispatch('loadList')
         dispatch('clearError')
       }
     } catch (error) {
@@ -78,7 +78,7 @@ export const actions = {
       const response = await this.$axios.delete(`/product/${id}`)
       const data = await response.data
       if (data.success) {
-        dispatch('loadList')
+        await dispatch('loadList')
         dispatch('clearError')
       }
     } catch (error) {
