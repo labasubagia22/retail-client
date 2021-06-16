@@ -2,10 +2,16 @@ import Vue from 'vue'
 
 Vue.mixin({
   methods: {
-    async loadingContainer(callback) {
-      this.$root.$loading.start()
-      await callback()
-      this.$root.$loading.finish()
+    loadingContainer(callback) {
+      this.$nextTick(async () => {
+        if (!this.$root.$loading) {
+          await callback()
+          return
+        }
+        this.$root.$loading.start()
+        await callback()
+        this.$root.$loading.finish()
+      })
     },
   },
 })

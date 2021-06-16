@@ -121,9 +121,11 @@ export default {
       this.handleSelectedStoreChanged()
     },
   },
-  async beforeCreate() {
-    await this.$store.dispatch('store/loadList')
-    this.initializeStoreId()
+  created() {
+    this.loadingContainer(async () => {
+      await this.$store.dispatch('store/loadList')
+      await this.initializeStoreId()
+    })
   },
   methods: {
     initializeStoreId() {
@@ -134,15 +136,19 @@ export default {
       this.$store.commit('store/setSelectedStoreId', id)
     },
     handleSelectedStoreChanged() {
-      const storeId = this.selectedStoreId
-      this.$store.dispatch('inventory/loadList', { store_id: storeId })
+      this.loadingContainer(async () => {
+        const storeId = this.selectedStoreId
+        await this.$store.dispatch('inventory/loadList', { store_id: storeId })
+      })
     },
-    async hanldleLogout() {
-      await this.$store.dispatch('user/logout')
-      if (!this.$store.state.user.current) {
-        this.$store.dispatch('cart/cartClear')
-        this.$router.push('/')
-      }
+    hanldleLogout() {
+      this.loadingContainer(async () => {
+        await this.$store.dispatch('user/logout')
+        if (!this.$store.state.user.current) {
+          this.$store.dispatch('cart/cartClear')
+          this.$router.push('/')
+        }
+      })
     },
   },
 }
