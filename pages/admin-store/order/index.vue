@@ -176,9 +176,15 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('inventory/loadList', { store_id: this.user.store_id })
-    this.$store.dispatch('order/loadList')
-    this.$store.dispatch('user/loadAllByType', 'customer')
+    this.loadingContainer(async () => {
+      await Promise.all([
+        this.$store.dispatch('inventory/loadList', {
+          store_id: this.user.store_id,
+        }),
+        this.$store.dispatch('order/loadList'),
+        this.$store.dispatch('user/loadAllByType', 'customer'),
+      ])
+    })
   },
   methods: {
     handleAdd() {
@@ -202,13 +208,15 @@ export default {
         products: [],
       }
     },
-    async handleSave() {
-      const payload = { ...this.form, store_id: this.user.store_id }
-      await this.$store.dispatch('order/create', payload)
-      if (!this.error && !this.validation) {
-        this.clearForm()
-        this.isFormOpen = false
-      }
+    handleSave() {
+      this.loadingContainer(async () => {
+        const payload = { ...this.form, store_id: this.user.store_id }
+        await this.$store.dispatch('order/create', payload)
+        if (!this.error && !this.validation) {
+          this.clearForm()
+          this.isFormOpen = false
+        }
+      })
     },
   },
 }

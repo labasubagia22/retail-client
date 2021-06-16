@@ -41,8 +41,10 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('query/loadTopProductSell', {
-      address: this.user.store.address,
+    this.loadingContainer(async () => {
+      await this.$store.dispatch('query/loadTopProductSell', {
+        address: this.user.store.address,
+      })
     })
   },
 }

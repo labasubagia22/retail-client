@@ -36,8 +36,10 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('query/loadTopProductSell', {
-      store_id: this.user.store_id,
+    this.loadingContainer(async () => {
+      await this.$store.dispatch('query/loadTopProductSell', {
+        store_id: this.user.store_id,
+      })
     })
   },
 }

@@ -202,14 +202,17 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('inventory/loadList', { store_id: this.user.store_id })
-    this.$store.dispatch('product/loadList')
-    this.$store.dispatch('vendor/loadList')
+    this.loadingContainer(async () => {
+      await Promise.all([
+        this.$store.dispatch('inventory/loadList', {
+          store_id: this.user.store_id,
+        }),
+        this.$store.dispatch('product/loadList'),
+        this.$store.dispatch('vendor/loadList'),
+      ])
+    })
   },
   methods: {
-    handleDelete(id) {
-      this.$store.dispatch('inventory/delete', id)
-    },
     handleEdit(v) {
       this.clearForm()
       this.isFormOpen = true
@@ -239,14 +242,24 @@ export default {
         vendor_id: '',
       }
     },
-    async handleSave() {
-      const payload = { ...this.form, store_id: this.user.store_id }
-      if (this.form.id) await this.$store.dispatch('inventory/update', payload)
-      else await this.$store.dispatch('inventory/create', payload)
-      if (!this.error && !this.validation) {
-        this.clearForm()
-        this.isFormOpen = false
-      }
+    handleDelete(id) {
+      this.loadingContainer(async () => {
+        await this.$store.dispatch('inventory/delete', id)
+      })
+    },
+    handleSave() {
+      this.loadingContainer(async () => {
+        const payload = { ...this.form, store_id: this.user.store_id }
+        if (this.form.id) {
+          await this.$store.dispatch('inventory/update', payload)
+        } else {
+          await this.$store.dispatch('inventory/create', payload)
+        }
+        if (!this.error && !this.validation) {
+          this.clearForm()
+          this.isFormOpen = false
+        }
+      })
     },
   },
 }
