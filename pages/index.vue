@@ -100,7 +100,9 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('productType/loadList')
+    this.loadingContainer(async () => {
+      await this.$store.dispatch('productType/loadList')
+    })
   },
   methods: {
     isAddToCartShow(inventory) {
@@ -112,9 +114,11 @@ export default {
     handleAddToCart(inventory) {
       if (inventory.is_on_cart) return
       if (inventory.stock <= 0) return
-      this.$store.dispatch('cart/productAdd', {
-        id: inventory.product_id,
-        amount: 1,
+      this.loadingContainer(async () => {
+        await this.$store.dispatch('cart/productAdd', {
+          id: inventory.product_id,
+          amount: 1,
+        })
       })
     },
   },

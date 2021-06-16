@@ -105,10 +105,14 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('inventory/loadList', {
-      store_id: this.selectedStoreId,
+    this.loadingContainer(async () => {
+      await Promise.all([
+        this.$store.dispatch('inventory/loadList', {
+          store_id: this.selectedStoreId,
+        }),
+        this.$store.dispatch('cart/initialize'),
+      ])
     })
-    this.$store.dispatch('cart/initialize')
   },
   methods: {
     clearForm() {
@@ -119,19 +123,25 @@ export default {
       if (!product) return 1
       return product.amount
     },
-    async handleSubmit() {
+    handleSubmit() {
       const isConfirmed = confirm('Process order?')
       if (!isConfirmed) return
-      await this.$store.dispatch('order/create', {
-        products: this.products,
-        store_id: this.selectedStoreId,
+      this.loadingContainer(async () => {
+        await this.$store.dispatch('order/create', {
+          products: this.products,
+          store_id: this.selectedStoreId,
+        })
+        await this.refresh()
       })
-      this.refresh()
     },
     refresh() {
-      this.$store.dispatch('cart/productClear')
-      this.$store.dispatch('inventory/loadList', {
-        store_ide: this.selectedStoreId,
+      this.loadingContainer(async () => {
+        await Promise.all([
+          this.$store.dispatch('cart/productClear'),
+          this.$store.dispatch('inventory/loadList', {
+            store_ide: this.selectedStoreId,
+          }),
+        ])
       })
     },
   },

@@ -204,11 +204,11 @@ export default {
   mounted() {
     this.loadingContainer(async () => {
       await Promise.all([
+        this.$store.dispatch('product/loadList'),
+        this.$store.dispatch('vendor/loadList'),
         this.$store.dispatch('inventory/loadList', {
           store_id: this.user.store_id,
         }),
-        this.$store.dispatch('product/loadList'),
-        this.$store.dispatch('vendor/loadList'),
       ])
     })
   },

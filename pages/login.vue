@@ -71,10 +71,12 @@ export default {
     },
   },
   methods: {
-    async handleSubmit() {
-      await this.$store.dispatch('user/login', this.form)
-      if (!this.$store.state.user.current) return
-      this.$router.push(getRedirectPath(this.$store.state.user.current.type))
+    handleSubmit() {
+      this.loadingContainer(async () => {
+        await this.$store.dispatch('user/login', this.form)
+        if (!this.$store.state.user.current) return
+        this.$router.push(getRedirectPath(this.$store.state.user.current.type))
+      })
     },
   },
 }

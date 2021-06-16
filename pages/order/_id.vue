@@ -50,10 +50,14 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('inventory/loadList', {
-      store_id: this.selectedStoreId,
+    this.loadingContainer(async () => {
+      await Promise.all([
+        this.$store.dispatch('order/loadSingle', this.$route.params.id),
+        this.$store.dispatch('inventory/loadList', {
+          store_id: this.selectedStoreId,
+        }),
+      ])
     })
-    this.$store.dispatch('order/loadSingle', this.$route.params.id)
   },
 }
 </script>

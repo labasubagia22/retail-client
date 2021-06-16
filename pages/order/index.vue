@@ -73,29 +73,39 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('order/loadList')
+    this.loadingContainer(async () => {
+      await this.$store.dispatch('order/loadList')
+    })
   },
   methods: {
-    async handleDone(id) {
-      const isConfirmed = confirm('Set this order as finished?')
-      if (!isConfirmed) return
-      const payload = { id, status: 'finished' }
-      await this.$store.dispatch('order/updateStatus', payload)
-      this.refresh()
+    handleDone(id) {
+      this.loadingContainer(async () => {
+        const isConfirmed = confirm('Set this order as finished?')
+        if (!isConfirmed) return
+        const payload = { id, status: 'finished' }
+        await this.$store.dispatch('order/updateStatus', payload)
+        await this.refresh()
+      })
     },
 
-    async handleCancel(id) {
-      const isConfirmed = confirm('Cancel this order?')
-      if (!isConfirmed) return
-      const payload = { id, status: 'cancelled' }
-      await this.$store.dispatch('order/updateStatus', payload)
-      this.refresh()
+    handleCancel(id) {
+      this.loadingContainer(async () => {
+        const isConfirmed = confirm('Cancel this order?')
+        if (!isConfirmed) return
+        const payload = { id, status: 'cancelled' }
+        await this.$store.dispatch('order/updateStatus', payload)
+        await this.refresh()
+      })
     },
 
     refresh() {
-      this.$store.dispatch('order/loadList')
-      this.$store.dispatch('inventory/loadList', {
-        store_id: this.selectedStoreId,
+      this.loadingContainer(async () => {
+        await Promise.all([
+          this.$store.dispatch('order/loadList'),
+          this.$store.dispatch('inventory/loadList', {
+            store_id: this.selectedStoreId,
+          }),
+        ])
       })
     },
   },

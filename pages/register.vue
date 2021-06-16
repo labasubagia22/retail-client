@@ -156,12 +156,16 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('store/loadList')
+    this.loadingContainer(async () => {
+      await this.$store.dispatch('store/loadList')
+    })
   },
   methods: {
-    async handleSubmit() {
-      await this.$store.dispatch('user/register', this.form)
-      this.$router.push('/login')
+    handleSubmit() {
+      this.loadingContainer(async () => {
+        await this.$store.dispatch('user/register', this.form)
+        this.$router.push('/login')
+      })
     },
   },
 }
