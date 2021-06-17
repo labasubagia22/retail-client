@@ -1,20 +1,48 @@
-# frontend
+# Mahabharata Retail Client
 
-## Build Setup
+This is web client of Mahabharata Retail
+This project using Nuxt.js (Javascript, Vue.js), go there for further information [link](https://lumen.laravel.com/docs).
 
-```bash
-# install dependencies
-$ npm install
+Full project documentation [here](https://www.notion.so/Final-Project-Mahabharata-Retail-dcb555d645804a17ac5bd98c5129f847)
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+## Requirement
 
-# build for production and launch server
-$ npm run build
-$ npm run start
+- [Node.js](https://nodejs.org/)
+- NPM (usually included in Node.js)
 
-# generate static project
-$ npm run generate
-```
+## Installation
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+1. rename env.example to .env
+2. make sure **BASE_URL** in .env is http://localhost:8000, or your backend server
+3. Install required package
+   ```bash
+   $ npm install
+   ```
+4. run in development mode
+   ```bash
+   $ npm run dev
+   ```
+5. open browser http://localhost:3000
+
+## Production Mode
+
+- build
+  ```bash
+  $ npm run build
+  $ npm run start
+  ```
+- generate static site
+  ```bash
+  $ npm run generate
+  ```
+
+## Default Account
+
+email
+
+- retail1@mail.com
+- store1@mail.com
+- store2@mail.com
+- customer1@mail.com
+
+password: 12345678
