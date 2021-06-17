@@ -16,6 +16,14 @@ export default {
       menu: [
         { link: '/admin-retail/dashboard', label: 'Index' },
         {
+          link: '/admin-retail/dashboard/top-sales-store',
+          label: 'Top Product Sell By Store',
+        },
+        {
+          link: '/admin-retail/dashboard/top-sales-area',
+          label: 'Top Product Sell in an Area',
+        },
+        {
           link: '/admin-retail/dashboard/top-selling-store',
           label: 'Top Selling Store',
         },

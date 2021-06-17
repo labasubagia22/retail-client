@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Products that buy within perticular product</h1>
+    <h1>Top Product Sales in a Store</h1>
 
     <div
       class="
@@ -15,19 +15,19 @@
       "
     >
       <div class="text-sm items-center">
-        <p class="mr-2 text-xs font-bold">Product</p>
+        <p class="mr-2 text-xs font-bold">Store</p>
         <select
-          v-model="product"
+          v-model="storeId"
           class="px-3 py-2 mt-1 text-sm rounded bg-white border-2 w-full"
           required
         >
           <option class="text-sm text-gray-500" disabled value="">
-            Select Product 1
+            Select Store
           </option>
           <option
-            v-for="v in products"
+            v-for="v in stores"
             :key="v.id"
-            :value="v"
+            :value="v.id"
             class="text-sm cursor-pointer"
           >
             {{ v.name }}
@@ -36,16 +36,13 @@
       </div>
     </div>
 
-    <h1 class="mt-4">Products</h1>
-    <table class="table-auto w-full border-collapse border-2 mt-2">
+    <table class="table-auto w-full border-collapse border-2 mt-4">
       <thead>
         <tr class="text-left text-sm">
           <th class="border-2 p-2">Name</th>
           <th class="border-2 p-2">Image</th>
-          <th class="border-2 p-2">Brand</th>
-          <th class="border-2 p-2">Type</th>
           <th class="border-2 p-2">Amount</th>
-          <!-- <th class="border-2 p-2">Total</th> -->
+          <th class="border-2 p-2">Total</th>
         </tr>
       </thead>
       <tbody class="text-sm">
@@ -54,10 +51,8 @@
           <td class="border-2 p-2 flex justify-center">
             <img class="h-20" :src="v.image_url" :alt="v.name" />
           </td>
-          <td class="border-2 p-2">{{ v.type }}</td>
-          <td class="border-2 p-2">{{ v.brand }}</td>
           <td class="border-2 p-2">{{ v.amount }}</td>
-          <!-- <td class="border-2 p-2">{{ v.subtotal_price }}</td> -->
+          <td class="border-2 p-2">{{ v.subtotal_price }}</td>
         </tr>
       </tbody>
     </table>
@@ -68,38 +63,40 @@
 import faker from 'faker'
 
 export default {
-  name: 'TopStore',
+  name: 'TopProductSalesByStore',
   data() {
-    return {
-      product: null,
-    }
+    return { storeId: '' }
   },
   computed: {
+    stores() {
+      return this.$store.state.store.list
+    },
     list() {
       return this.$store.state.query.list
     },
-    products() {
-      return this.$store.state.product.list
+    user() {
+      return this.$store.state.user.current
     },
   },
   watch: {
-    product() {
-      this.handleChangeProduct()
+    storeId() {
+      this.handleStoreChange()
     },
   },
   mounted() {
+    if (this.storeId) this.handleStoreChange()
     this.loadingContainer(async () => {
-      await this.$store.dispatch('product/loadList')
-      if (this.products.length) {
-        this.product = faker.random.arrayElement(this.products)
-      }
+      await this.$store.dispatch('store/loadList')
+      if (this.storeId) return
+      if (this.stores.length <= 0) return
+      this.storeId = faker.random.arrayElement(this.stores).id
     })
   },
   methods: {
-    handleChangeProduct() {
+    handleStoreChange() {
       this.loadingContainer(async () => {
-        await this.$store.dispatch('query/loadTopBuyWithin', {
-          product_id: this.product.id,
+        await this.$store.dispatch('query/loadTopProductSell', {
+          store_id: this.storeId,
         })
       })
     },
