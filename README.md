@@ -1,7 +1,7 @@
 # Mahabharata Retail Client
 
 This is web client of Mahabharata Retail
-This project using Nuxt.js (Javascript, Vue.js), go there for further information [link](https://lumen.laravel.com/docs).
+This project using Nuxt.js (Javascript, Vue.js), go there for further information [link](https://nuxtjs.org/).
 
 Full project documentation [here](https://www.notion.so/Final-Project-Mahabharata-Retail-dcb555d645804a17ac5bd98c5129f847)
 
