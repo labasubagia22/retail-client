@@ -139,7 +139,7 @@ export default {
         await Promise.all([
           this.$store.dispatch('cart/productClear'),
           this.$store.dispatch('inventory/loadList', {
-            store_ide: this.selectedStoreId,
+            store_id: this.selectedStoreId,
           }),
         ])
       })
