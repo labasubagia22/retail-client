@@ -1,5 +1,7 @@
 <template>
-  <div class="bg-white-500 shadow h-16 flex justify-center items-center">
+  <div
+    class="bg-white-500 shadow h-16 flex justify-center items-center bg-white"
+  >
     <div class="p-4 w-8/12 flex justify-between items-center">
       <!-- left -->
       <div>
