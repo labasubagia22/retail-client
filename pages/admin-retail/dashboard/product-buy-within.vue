@@ -54,8 +54,8 @@
           <td class="border-2 p-2 flex justify-center">
             <img class="h-20" :src="v.image_url" :alt="v.name" />
           </td>
-          <td class="border-2 p-2">{{ v.type }}</td>
           <td class="border-2 p-2">{{ v.brand }}</td>
+          <td class="border-2 p-2">{{ v.type }}</td>
           <td class="border-2 p-2">{{ v.amount }}</td>
           <!-- <td class="border-2 p-2">{{ v.subtotal_price }}</td> -->
         </tr>
